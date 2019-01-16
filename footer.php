@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Book Your Seat </title>
+
+	<!-- Google font -->
+
+	<!-- Bootstrap --><link rel="stylesheet" href="mbr-additional.css" />
+	
+
+</head>
+<body>
+<section class="cid-qTkAaeaxX5" id="footer1-2">
+
+		<div class="container">
+			<div class="media-container-row content text-white">
+				<div class="col-12 col-md-3">
+					<div class="media-wrap">
+						<a href="index.html"> <img
+							src="evolve-logo-2-192x192.jpg" alt="Mobirise"
+							title="">
+						</a>
+					</div>
+				</div>
+				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3" style="font-size: 20px ;color:white;">Address</h5>
+					<p class="mbr-text" style="font-size: 20px">L-9/14, L-9, DLF Phase 2, Sector 25,
+						Gurugram, Haryana 122022</p>
+				</div>
+				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3" style="font-size: 20px ;color:white;" >Get in Touch</h5>
+					<p class="mbr-text" style="font-size: 20px">
+					evolvetoexcelteam@gmail.com Phone:9620688619 &nbsp;
+					<br>WhatsApp: 8298991710&nbsp;
+						
+					</p>
+				</div>
+				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3"></h5>
+					<p class="mbr-text"></p>
+					</span> <span class="navbar-caption-wrap"><a
+						class="navbar-caption text-primary display-5"
+						style="position: absolute; top: 5px; font-size: 35px;font-style: italic;"
+						href="http://evolvetoexcel.com">EVOLVE</a><a
+						class="navbar-caption text-primary display-5"
+						style="position: relative; left: 0px; top: 30px; font-size: 10px">Spreading
+							the art of excelling</a></span>
+					
+				</div>
+			</div>
+			<div class="footer-lower">
+				<div class="media-container-row">
+					<div class="col-sm-12">
+						<hr>
+					</div>
+				</div>
+				<div class="media-container-row mbr-white">
+					<div class="col-sm-6 copyright">
+						<p class="mbr-text mbr-fonts-style display-7" style="color:white; font-size:20px">© Copyright 2019
+							EVOLVE - All Rights Reserved</p>
+					</div>
+					<div class="col-md-6">
+						<div class="social-list align-right">
+							<div class="soc-item">
+								
+							</div>
+							
+							
+							<div class="soc-item">
+								<a
+									href="https://www.facebook.com/Evolvetoexcel-190103515235838"
+									target="_blank"> <span
+									class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a
+									href="https://www.youtube.com/channel/UCep-R0JgFvdFaENIqdtvyrw"
+									target="_blank"> <span
+									class="mbr-iconfont mbr-iconfont-social socicon-youtube socicon"></span>
+								</a>
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+</body>
+
+</html>
