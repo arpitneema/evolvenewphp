@@ -6,14 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Book Your Seat </title>
+	<title>Success </title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700,900" rel="stylesheet">
 
-	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-
+ <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+	
 	<!-- Owl Carousel -->
 	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
 	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
@@ -25,16 +25,24 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
  
        
+<link rel="stylesheet" href="mbr-additional.css" />
 	<link type="text/css" rel="stylesheet" href="animation.css" />
 	
-	<link type="text/css" rel="stylesheet" href="bundles/Enterprise_skeleton.css" />
-<link rel="stylesheet" href="mbr-additional.css" />
+	<style>
+	</style>
+<script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("footer.php"); 
+    });
+    </script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 			  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 			<![endif]-->
+		
 </head>
 <body>
 
@@ -46,7 +54,7 @@
 			<div class="navbar-header">
 				<!-- Logo -->
 				<div class="navbar-brand">
-					<a class="logo" href="index.php">
+					<a class="logo" href="index.html">
 						<img class="logo-img" src="./img/logo.png" alt="logo">
 						<img class="logo-alt-img" src="./img/logo-alt.png" alt="logo">
 					</a>
@@ -65,28 +73,35 @@
 			<!-- Navigation -->
 			<nav id="nav">
 				<ul class="main-nav nav navbar-nav navbar-right ">
-					<li class="snip1217"><a href="index.php">Home</a></li>
-					<li class="snip1217"><a href="#about">About</a></li>
-					<li class="snip1217"><a href="#schedule">Schedule</a></li>
-					<li class="snip1217"><a href="#speakers">Speakers</a></li>
-					<li class="snip1217"><a href="#sponsors">Sponsors</a></li>
-					<li class="snip1217"><a href="#contact">Contact</a></li>
-					<li class="snip1217"><a href="blog.html">Blog</a></li>
+					<li class="snip1217"><a href="index.html" onclick="onclickofli()">Home</a></li>
+					<li class="snip1217"><a href="index.html#about" onclick="onclickofli()">About</a></li>
+					<li class="snip1217"><a href="index.html#highlights" onclick="onclickofli()">Highlights</a></li>
+					<li class="snip1217"><a href="index.html#speaker" onclick="onclickofli()">Speaker</a></li>
+					<li class="snip1217"><a href="Register.php" onclick="onclickofli()">Register</a></li>
+					<li class="snip1217"><a href="index.html#contact" onclick="onclickofli()">Contact</a></li>
+					
 				</ul>
 			</nav>
 			<!-- /Navigation -->
 		</div>
 		<!-- /container -->
 	</header>
-		<div class="block parrot bg-layer heading-wrapper-small top-left" id="cta3" style="background-image: url(&quot;images/uploads/1/5b16cc67029fc_placeholder4.jpeg&quot;); background-color: rgba(0, 0, 0, 0); padding-top: 80px; padding-bottom: 80px;">
-			<div class="overly" style="background-color: rgba(0, 0, 0, 0.6);">
+	
+	<!-- /Header -->
+	<div class="block yummy bg-layer subscribe background-cover padding-top-100 padding-bottom-100 v-align v-single bottom-center" style="background-image: url(&quot;images/uploads/1/5b16cc5d5a2bd_placeholder2.jpeg&quot;); background-color: rgba(0, 0, 0, 0); padding-top: 100px; padding-bottom: 100px;" id="subscribe7">
+			<div class="overly" style="background-color: rgba(0, 0, 0, 0);">
 			</div>
 			<div class="container">
-				<div class="row row-vertical-center" id="fPfqc">
-					<div class="col-md-12">
-						<div class="sbpro-bg-styler cta3 xs-margin-bottom-20">
-							<h1 class="font-open text-white margin-bottom-25 text-center" style="font-size: 36px; color: rgb(255, 255, 255); margin: 0px 0px 25px;">You have Successfully Registered </h1>
-							<p class="font-open text-white-smoke margin-bottom-25 text-center" style="font-size: 16px; color: rgb(249, 249, 249); margin: 0px 0px 25px;"><?php 
+				<div class="row">
+				<h1 class="font-open text-white margin-bottom-25 text-center" style="font-size: 36px; color: rgb(255, 255, 255); margin: 0px 0px 25px; font-weight: itallic; text-shadow: -2px 2px 2px #59F90A;">You have Successfully Registered For the Event</h1>
+					<div class="col-md-6 col-md-offset-3">
+						<div class="sbpro-bg-styler text-center" >
+							   
+							
+								<div class="blodck parrot bg-layer heading-wrapper-small top-left" id="cta" style="border-style: solid; font-size: 20px;color: rgb(255, 255, 255); padding-top: 80px;min-height:100%; position:relative;">
+								Please find your registered details below: </br></br>
+								<div style="text-shadow: -2px 2px 2px #3011e0;">
+							<?php 
 require_once ( 'src/config.php');
 require_once ( 'src/Instamojo.php');
 
@@ -97,39 +112,44 @@ $payid = $_GET["payment_request_id"];
 try {
 	
     $response = $api->paymentRequestStatus($payid);
-echo "<h4 >Payment ID: " . $response['payments'][0]['payment_id'] . "</h4>" ;
-    echo "<div >Registered Name: " . $response['payments'][0]['buyer_name'] . "</h4>" ;
-    echo "<div>Registered Email: " . $response['payments'][0]['buyer_email'] . "</h4>" ;
+echo "<p>Payment ID: " . $response['payments'][0]['payment_id'] . "</p></br>" ;
+    echo "<h>Registered Name: " . $response['payments'][0]['buyer_name'] . "</h></br>" ;
+    echo "<h>Registered Email: " . $response['payments'][0]['buyer_email'] . "</h></br>" ;
+	echo "<h>Mobile: " . $response['payments'][0]['buyer_phone'] . "</h>" ;
+	
  // print_r($response);
+
+  echo "<br></br>";
+  
 }
 catch (Exception $e) {
     print('Error: ' . $e->getMessage());
 }
-?></p>
-							 <a href="#" class="btn btn-parrot2 btn-success" style="margin-top: 0px; margin-bottom: 0px;">CTA BUTTON</a>
+?>       </div> </div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<!-- /Footer -->
 <section class="cid-qTkAaeaxX5" id="footer1-2">
 
-		<div class="container">
-			<div class="media-container-row content text-white">
-				<div class="col-12 col-md-3">
-					<div class="media-wrap">
+		<div class="container" style="text-align: center;">
+			<div class="media-container-row content text-white" style="text-align: center;">
+				<div class="col-12 col-md-3" style="text-align: center;">
+					<div class="media-wrap" style="text-align: center;">
 						<a href="index.html"> <img
 							src="evolve-logo-2-192x192.jpg" alt="Mobirise"
 							title="">
 						</a>
 					</div>
 				</div>
-				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+			<!-- <div class="col-12 col-md-3 mbr-fonts-style display-7">
 					<h5 class="pb-3" style="font-size: 20px">Address</h5>
 					<p class="mbr-text" style="font-size: 20px">L-9/14, L-9, DLF Phase 2, Sector 25,
 						Gurugram, Haryana 122022</p>
-				</div>
+				</div> 
 				<div class="col-12 col-md-3 mbr-fonts-style display-7">
 					<h5 class="pb-3" style="font-size: 20px">Get in Touch</h5>
 					<p class="mbr-text" style="font-size: 20px">
@@ -137,64 +157,71 @@ catch (Exception $e) {
 					<br>WhatsApp: 8298991710&nbsp;
 						
 					</p>
-				</div>
-				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+				</div>-->
+				
+				<!--<a href="https://www.facebook.com/Evolvetoexcel-190103515235838" class="fa fa-facebook"></a>
+							<a href="#" class="fa fa-youtube"></a>-->
+				<div class="col-22 col-md-9 mbr-fonts-dstyle disdplay-7" style="text-align: center;">
 					<h5 class="pb-3"></h5>
 					<p class="mbr-text"></p>
 					</span> <span class="navbar-caption-wrap"><a
 						class="navbar-caption text-primary display-5"
-						style="position: absolute; top: 5px; font-size: 35px;font-style: italic;"
-						href="http://evolvetoexcel.com">EVOLVE</a><a
+						style="position: absolute; top: 5px; text-align: right; font-size: 35px;font-style: italic;font-style: italic;"
+						href="index.html">EVOLVE</a><a
 						class="navbar-caption text-primary display-5"
-						style="position: relative; left: 0px; top: 30px; font-size: 10px">Spreading
+						style="position: relative; text-align: right;; top: 30px; font-size: 10px">Spreading
 							the art of excelling</a></span>
 					
 				</div>
 			</div>
-			<div class="footer-lower">
-				<div class="media-container-row">
-					<div class="col-sm-12">
-						<hr>
-					</div>
-				</div>
-				<div class="media-container-row mbr-white">
-					<div class="col-sm-6 copyright">
-						<p class="mbr-text mbr-fonts-style display-7" style="color:white; font-size:20px">© Copyright 2019
-							EVOLVE - All Rights Reserved</p>
-					</div>
-					<div class="col-md-6">
-						<div class="social-list align-right">
-							<div class="soc-item">
-								
-							</div>
-							
-							
-							<div class="soc-item">
-								<a
-									href="https://www.facebook.com/Evolvetoexcel-190103515235838"
-									target="_blank"> <span
-									class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a
-									href="https://www.youtube.com/channel/UCep-R0JgFvdFaENIqdtvyrw"
-									target="_blank"> <span
-									class="mbr-iconfont mbr-iconfont-social socicon-youtube socicon"></span>
-								</a>
-							</div>
-
-
-
-						</div>
-					</div>
-				</div>
-			</div>
+		
 		</div>
 	</section>
-	
 	<!-- /Footer -->
-
+		<script>
+		$('.btn').on('click', function() {
+			if(ValidateEmail()){
+				console.log('inside');
+    var $this = $(this);
+  $this.button('loading');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 8000);
+  }
+});
+function ValidateEmail(inputText)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(document.form1.email.value.match(mailformat))
+{
+document.form1.email.focus();
+return true;
+}
+else
+{
+alert("You have entered an invalid email address!");
+document.form1.email.focus();
+return false;
+}
+}
+		
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+};
+function onclickofli(){
+eventFire(document.getElementsByClassName('navbar-toggle')[0], 'click');
+};
+window.onload = () => {
+    let el = document.querySelector('[alt="www.000webhost.com"]').parentNode.parentNode;
+    el.parentNode.removeChild(el);
+};
+</script>
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

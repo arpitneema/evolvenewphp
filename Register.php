@@ -1,3 +1,53 @@
+<?php 
+require_once ( 'src/config.php');
+require_once ( 'src/Instamojo.php');
+if(isset($_POST['paymentbutton'])){
+$product_name = "Registration for Quest for Infinity- A one day Fest";
+$price = "100";
+$name = $_POST["name"];
+$phone = $_POST["phone"];
+$email = $_POST["email"];
+      //Download from website
+$api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
+try {
+//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
+$conn = new mysqli($host, $dbuserName, $dbpassword, $dbNamelocal);
+$yourName = $conn->real_escape_string($_POST['name']);
+$yourEmail = $conn->real_escape_string($_POST['email']);
+$yourPhone = $conn->real_escape_string($_POST['phone']);
+$age = $conn->real_escape_string($_POST['age']);
+if ($conn->connect_error) {
+//die("Connection failed: " . $conn->connect_error);
+}
+//$sql="INSERT INTO devotee (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
+$sql="INSERT INTO contact_form_info (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
+if(!$result = $conn->query($sql)){
+//die('There was an error running the query [' . $conn->error . ']');
+}
+else
+{
+}
+	$response = $api->paymentRequestCreate(array(
+        "purpose" => $product_name,
+        "amount" => $price,
+        "buyer_name" => $name,
+        "phone" => $phone,
+        "send_email" => true,
+        "send_sms" => true,
+        "email" => $email,
+        'allow_repeated_payments' => false,
+        "redirect_url" => "https://evolvetoexcel.com/Success.php",
+        "webhook" => "http://evolvetoexcel.com/webhook.php"
+    ));
+    $pay_url = $response['longurl'];
+    header("Location: $pay_url");
+    exit();
+}
+catch (Exception $e) {
+    print('Error: ' . $e->getMessage());
+}     
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +62,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700,900" rel="stylesheet">
 
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-
+ <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
 	
 	<!-- Owl Carousel -->
 	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
@@ -25,8 +75,11 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
  
        
+<link rel="stylesheet" href="mbr-additional.css" />
 	<link type="text/css" rel="stylesheet" href="animation.css" />
 	
+	<style>
+	</style>
 <script src="jquery.js"></script> 
     <script> 
     $(function(){
@@ -51,7 +104,7 @@
 			<div class="navbar-header">
 				<!-- Logo -->
 				<div class="navbar-brand">
-					<a class="logo" href="index.php">
+					<a class="logo" href="index.html">
 						<img class="logo-img" src="./img/logo.png" alt="logo">
 						<img class="logo-alt-img" src="./img/logo-alt.png" alt="logo">
 					</a>
@@ -70,12 +123,12 @@
 			<!-- Navigation -->
 			<nav id="nav">
 				<ul class="main-nav nav navbar-nav navbar-right ">
-					<li class="snip1217"><a href="index.php">Home</a></li>
-					<li class="snip1217"><a href="#about">About</a></li>
-					<li class="snip1217"><a href="#schedule">Schedule</a></li>
-					<li class="snip1217"><a href="#speakers">Speakers</a></li>
-					<li class="snip1217"><a href="Register.php">Register</a></li>
-					<li class="snip1217"><a href="#contact">Contact</a></li>
+					<li class="snip1217"><a href="index.html" onclick="onclickofli()">Home</a></li>
+					<li class="snip1217"><a href="index.html#about" onclick="onclickofli()">About</a></li>
+					<li class="snip1217"><a href="index.html#highlights" onclick="onclickofli()">Highlights</a></li>
+					<li class="snip1217"><a href="index.html#speaker" onclick="onclickofli()">Speaker</a></li>
+					<li class="snip1217"><a href="Register.php" onclick="onclickofli()">Register</a></li>
+					<li class="snip1217"><a href="index.html#contact" onclick="onclickofli()">Contact</a></li>
 					
 				</ul>
 			</nav>
@@ -83,6 +136,7 @@
 		</div>
 		<!-- /container -->
 	</header>
+	
 	<!-- /Header -->
 	<div class="block yummy bg-layer subscribe background-cover padding-top-100 padding-bottom-100 v-align v-single bottom-center" style="background-image: url(&quot;images/uploads/1/5b16cc5d5a2bd_placeholder2.jpeg&quot;); background-color: rgba(0, 0, 0, 0); padding-top: 100px; padding-bottom: 100px;" id="subscribe7">
 			<div class="overly" style="background-color: rgba(0, 0, 0, 0);">
@@ -92,9 +146,9 @@
 					<div class="col-md-6 col-md-offset-3">
 						<div class="sbpro-bg-styler text-center">
 							<h2 class="text-center" style="font-size: 30px; color: rgb(255, 255, 255); margin: 20px 0px;"></h2>
-							<p class="lead text-center" style="font-size: 19px; color: rgb(243, 243, 243); margin: 0px 0px 15px;">Book Your Seat for this extraordinary event </p>
-							<p class="text-center" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px;">Please provide us your details and pay the registration fees of Rs 100 now to confirm your seat. </p>
-							<form role="form" action="formaction.php" method="post">
+							<p class="lead text-center" style="font-size: 19px; color: rgb(243, 243, 243); margin: 0px 0px 15px; font-style: italic;">Book Your Seat for this remarkable event </p>
+							<p class="text-center" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;">Please provide us your details and pay the registration fees of Rs 100 now to confirm your seat. </p>
+							<form role="form" action="" method="post" name="form1">
 								<input type="text" name="_honey" value="" style="display:none" />
 								
 								<div class="form-group">
@@ -102,16 +156,16 @@
 								</div>
 								<div class="form-group">
 								
-									<input type="email" class="form-cofntrol input-lg" id="email" name="email"   placeholder="Your email *" style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
+									<input type="input" class="form-cofntrol input-lg" id="email" name="email"   placeholder="Your email *" style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
 								</div>
 								<div class="form-group">
-									<input type="phone" class="form-contrhol input-lg" pattern="[789][0-9]{9}" id="phone" name="phone" placeholder="Your Mobile No. *"  style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
+									<input type="phone" class="form-contrhol input-lg"  id="phone" name="phone" placeholder="Your 10 digit Mobile No. *"  style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
 								</div>
 								<div class="form-group">
 									<input type="number" class="form-cntrol input-lg" id="age" name="age" placeholder="Age *" style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
 								</div>
 								
-								<button type="submit" class="btdn btn-indfo btn-blfock" style="color:rgb(0,0,255)">Make Payment
+								<button type="submit"  class="btn btn-primary btn-lg "  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Redirecting to Payment Gateway"  style="color:rgb(0,0,255)" name="paymentbutton" id="paymentbutton">Make Payment
 								</button>
 							</form>
 							<p class="small sb_open text-center" style="margin: 30px 0px 15px; font-size: 13.6px; color: rgb(238, 238, 238);">Powered by Instamojo<a href="#"> </a> </p>
@@ -122,9 +176,96 @@
 		</div>
 		
 		<!-- /Footer -->
-    <div id="includedContent"></div>
+ <section class="cid-qTkAaeaxX5" id="footer1-2">
+
+		<div class="container">
+			<div class="media-container-row content text-white">
+				<div class="col-12 col-md-3">
+					<div class="media-wrap">
+						<a href="index.html"> <img
+							src="evolve-logo-2-192x192.jpg" alt="Mobirise"
+							title="">
+						</a>
+					</div>
+				</div>
+			<!-- <div class="col-12 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3" style="font-size: 20px">Address</h5>
+					<p class="mbr-text" style="font-size: 20px">L-9/14, L-9, DLF Phase 2, Sector 25,
+						Gurugram, Haryana 122022</p>
+				</div> 
+				<div class="col-12 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3" style="font-size: 20px">Get in Touch</h5>
+					<p class="mbr-text" style="font-size: 20px">
+					evolvetoexcelteam@gmail.com Phone:9620688619 &nbsp;
+					<br>WhatsApp: 8298991710&nbsp;
+						
+					</p>
+				</div>-->
+				<!--<a href="https://www.facebook.com/Evolvetoexcel-190103515235838" class="fa fa-facebook"></a>
+							<a href="#" class="fa fa-youtube"></a>-->
+				<div class="col-22 col-md-3 mbr-fonts-style display-7">
+					<h5 class="pb-3"></h5>
+					<p class="mbr-text"></p>
+					</span> <span class="navbar-caption-wrap"><a
+						class="navbar-caption text-primary display-5"
+						style="position: absolute; top: 5px; text-align: right; font-size: 35px;font-style: italic;"
+						href="index.html">EVOLVE</a><a
+						class="navbar-caption text-primary display-5"
+						style="position: relative; text-align: right;; top: 30px; font-size: 10px">Spreading
+							the art of excelling</a></span>
+					
+				</div>
+			
+
+			</div>
+		
+		</div>
+	</section>
 	<!-- /Footer -->
-	
+		<script>
+		$('.btn').on('click', function() {
+			if(ValidateEmail()){
+				console.log('inside');
+    var $this = $(this);
+  $this.button('loading');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 8000);
+  }
+});
+function ValidateEmail(inputText)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(document.form1.email.value.match(mailformat))
+{
+document.form1.email.focus();
+return true;
+}
+else
+{
+alert("You have entered an invalid email address!");
+document.form1.email.focus();
+return false;
+}
+}
+		
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+};
+function onclickofli(){
+eventFire(document.getElementsByClassName('navbar-toggle')[0], 'click');
+};
+window.onload = () => {
+    let el = document.querySelector('[alt="www.000webhost.com"]').parentNode.parentNode;
+    el.parentNode.removeChild(el);
+};
+</script>
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

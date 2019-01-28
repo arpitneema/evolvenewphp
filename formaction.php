@@ -8,7 +8,7 @@ require_once ( 'src/Instamojo.php');
 
 
 
-$product_name = "purpose";
+$product_name = "Registration for Quest for Infinity- A one day Fest";
 
 $price = "100";
 
