@@ -3,15 +3,11 @@ require_once ( 'src/config.php');
 require_once ( 'src/Instamojo.php');
 if(isset($_POST['paymentbutton'])){
 $product_name = "Registration for Quest for Infinity- A one day Fest";
-$price = "100";
-$name = $_POST["name"];
-$phone = $_POST["phone"];
-$email = $_POST["email"];
-      //Download from website
+$price = "100";      //Download from website
 $api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
 try {
-//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
-$conn = new mysqli($host, $dbuserName, $dbpassword, $dbNamelocal);
+$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
+//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbNamelocal);
 $yourName = $conn->real_escape_string($_POST['name']);
 $yourEmail = $conn->real_escape_string($_POST['email']);
 $yourPhone = $conn->real_escape_string($_POST['phone']);
@@ -19,8 +15,8 @@ $age = $conn->real_escape_string($_POST['age']);
 if ($conn->connect_error) {
 //die("Connection failed: " . $conn->connect_error);
 }
-//$sql="INSERT INTO devotee (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
-$sql="INSERT INTO contact_form_info (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
+$sql="INSERT INTO devotee (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
+//$sql="INSERT INTO contact_form_info (name, email, phone, age) VALUES ('".$yourName."','".$yourEmail."', '".$yourPhone."', '".$age."')";
 if(!$result = $conn->query($sql)){
 //die('There was an error running the query [' . $conn->error . ']');
 }
@@ -30,13 +26,13 @@ else
 	$response = $api->paymentRequestCreate(array(
         "purpose" => $product_name,
         "amount" => $price,
-        "buyer_name" => $name,
-        "phone" => $phone,
-        "send_email" => true,
-        "send_sms" => true,
-        "email" => $email,
+        "buyer_name" => $yourName,
+        "phone" => $yourPhone,
+        "send_email" => false,
+        "send_sms" => false,
+        "email" => $yourEmail,
         'allow_repeated_payments' => false,
-        "redirect_url" => "https://evolvetoexcel.com/Success.php",
+        "redirect_url" => "https://evolvetoexcel.com/PaymentRedirect.php",
         "webhook" => "http://evolvetoexcel.com/webhook.php"
     ));
     $pay_url = $response['longurl'];
@@ -77,9 +73,18 @@ catch (Exception $e) {
        
 <link rel="stylesheet" href="mbr-additional.css" />
 	<link type="text/css" rel="stylesheet" href="animation.css" />
-	
-	<style>
-	</style>
+	<!-- jQuery Plugins -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="js/google-map.js"></script>
+	<script src="js/jquery.countTo.js"></script>
+	<script src="js/main.js"></script>
+	<script src="waitingfor.js"></script>
+
 <script src="jquery.js"></script> 
     <script> 
     $(function(){
@@ -148,7 +153,7 @@ catch (Exception $e) {
 							<h2 class="text-center" style="font-size: 30px; color: rgb(255, 255, 255); margin: 20px 0px;"></h2>
 							<p class="lead text-center" style="font-size: 19px; color: rgb(243, 243, 243); margin: 0px 0px 15px; font-style: italic;">Book Your Seat for this remarkable event </p>
 							<p class="text-center" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;">Please provide us your details and pay the registration fees of Rs 100 now to confirm your seat. </p>
-							<form role="form" action="" method="post" name="form1">
+							<form role="form" action="" method="post" name="form1" onsubmit="return validateMyForm();">
 								<input type="text" name="_honey" value="" style="display:none" />
 								
 								<div class="form-group">
@@ -174,7 +179,8 @@ catch (Exception $e) {
 				</div>
 			</div>
 		</div>
-		
+	
+        
 		<!-- /Footer -->
  <section class="cid-qTkAaeaxX5" id="footer1-2">
 
@@ -223,17 +229,20 @@ catch (Exception $e) {
 	</section>
 	<!-- /Footer -->
 		<script>
-		$('.btn').on('click', function() {
-			if(ValidateEmail()){
+		
+
+		function validateMyForm() {
+			if(ValidateEmail() && ValidateAge()){
 				console.log('inside');
-    var $this = $(this);
-  $this.button('loading');
-    setTimeout(function() {
-       $this.button('reset');
-   }, 8000);
+  
+   waitingDialog.show('Redirecting you to Payment Gateway. Plz do not press back or refresh.');
+   return true;
+  }else {
+	  return false;
   }
-});
-function ValidateEmail(inputText)
+}
+		//$('.btn').on('click', );
+function ValidateEmail()
 {
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 if(document.form1.email.value.match(mailformat))
@@ -248,7 +257,36 @@ document.form1.email.focus();
 return false;
 }
 }
-		
+function ValidatePhone()
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(document.form1.email.value.match(mailformat))
+{
+document.form1.email.focus();
+return true;
+}
+else
+{
+alert("You have entered an invalid email address!");
+document.form1.email.focus();
+return false;
+}
+}	
+function ValidateAge()
+{
+if(document.form1.age.value <= 80 && document.form1.age.value >= 12 )
+{
+document.form1.age.focus();
+return true;
+}
+else
+{
+alert("Please Enter a Valid Age between 12 to 80!");
+document.form1.age.focus();
+return false;
+}
+}
+	
 function eventFire(el, etype){
   if (el.fireEvent) {
     el.fireEvent('on' + etype);
@@ -266,16 +304,7 @@ window.onload = () => {
     el.parentNode.removeChild(el);
 };
 </script>
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-	<script src="js/google-map.js"></script>
-	<script src="js/jquery.countTo.js"></script>
-	<script src="js/main.js"></script>
+	
 
 </body>
 
