@@ -1,0 +1,1 @@
+John govindINSERT INTO registereddevotee (name, email, phone, transactionid, Amount, paymentrequestid, status) VALUES ('','', '', '', '', '', '')
