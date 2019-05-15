@@ -10,16 +10,7 @@ require_once ( 'src/config.php');
 $mail = new PHPMailer(true);  
 $data = $_POST;
  $mac_provided = $data['mac'];  // Get the MAC from the POST data
-unset($data['mac']);  // Remove the MAC key from the data.
-$ver = explode('.', phpversion());
-$major = (int) $ver[0];
-$minor = (int) $ver[1];
-if($major >= 5 and $minor >= 4){
-     ksort($data, SORT_STRING | SORT_FLAG_CASE);
-}
-else{
-     uksort($data, 'strcasecmp');
-}
+
 //for production
 $mac_calculated = hash_hmac("sha1", implode("|", $data), "71fc4518a3884d3cb561ab8c952294f7");
 //for test
@@ -52,7 +43,7 @@ if ($conn->connect_error) {
 //die("Connection failed: " . $conn->connect_error);
 }
 $sql="INSERT INTO registereddevotee (name, email, phone, transactionid, Amount, paymentrequestid, status) VALUES ('".$name."','".$email."', '".$phone."', '".$paymentid."', '".$amount."', '".$paymentrequestid."', '".$status."')";
-$myfile = fopen("newfile1.txt", "w");
+$myfile = fopen("radheradhe.txt", "w");
 $txt = "John govind";
 fwrite($myfile, $txt);
 fwrite($myfile, $sql);
@@ -64,7 +55,7 @@ fwrite($myfile, $txt);
 }
 else
 {
-}
+} 
 
 	
 }
@@ -75,6 +66,15 @@ $exceptin="exception";
 }    
 fclose($myfile);
 try {
+	/*
+$name = 'ram kishan';
+$email = 'ram@kishan.com';
+$phone = '9879879877';
+$paymentid = 'IDNO2222';
+$paymentrequestid = 'MOJOid334';
+$amount = '66';
+$status = 'SUCCESS';*/
+	
 $name = $conn->real_escape_string($data['buyer_name']);
 $email = $conn->real_escape_string($data['buyer']);
 $phone = $conn->real_escape_string($data['buyer_phone']);
@@ -94,8 +94,8 @@ $status = $conn->real_escape_string($data['status']);
 
     //Recipients
     $mail->setFrom('info@evolvetoexcel.com', 'EvolveToExcel');
-  // $mail->addAddress($email, $name);     // Add a recipient
-  $mail->addAddress("arpitneema25@gmail.com", "arpit");     // Add a recipient
+   $mail->addAddress($email, $name);     // Add a recipient
+ // $mail->addAddress("arpitneema25@gmail.com", "arpit");     // Add a recipient
   
  // $mail->addAddress('ellen@example.com');               // Name is optional
     $mail->addReplyTo('info@evolvetoexcel.com', 'EvolveToExcel');
@@ -109,7 +109,7 @@ $status = $conn->real_escape_string($data['status']);
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Welcome Onboard';
-	$message = "You have succesfully registered for the event: 'Quest for Infinity'. Please find the details below:";
+	$message = "You have succesfully registered for the event: 'Mindful and conscious living'. Please find the details below:";
 	            $message .= "<h1>Payment Details</h1>";
     
                 $message .= "<hr>";
@@ -123,8 +123,8 @@ $status = $conn->real_escape_string($data['status']);
 				$message .= "<h1>Event Details</h1>";
     
                 $message .= "<hr>";
-                $message .= "<p><b>Date: 16th Feb 2018</b>";
-                $message .= "<p><b>Time: 5:30 PM </b>";
+                $message .= "<p><b>Date: 16th June 2019</b>";
+                $message .= "<p><b>Time: 6:00 PM </b>";
                 $message .= "<hr>";
                 $message .= '<p><b>Venue: Hotel Swasno, J-10/7 DLF Phase 2
 Opposite Sahara Mall, Gurgaon,</b> </p>';

@@ -371,7 +371,7 @@ class SMTP
         }
         // Get any announcement
         $announce = $this->get_lines();
-        $this->edebug('SERVER -> CLIENT: ' . $announce, self::DEBUG_SERVER);
+        //$this->edebug('SERVER -> CLIENT: ' . $announce, self::DEBUG_SERVER);
 
         return true;
     }
@@ -921,7 +921,7 @@ class SMTP
             $detail = substr($this->last_reply, 4);
         }
 
-        $this->edebug('SERVER -> CLIENT: ' . $this->last_reply, self::DEBUG_SERVER);
+       // $this->edebug('SERVER -> CLIENT: ' . $this->last_reply, self::DEBUG_SERVER);
 
         if (!in_array($code, (array) $expect)) {
             $this->setError(
@@ -1016,9 +1016,9 @@ class SMTP
         //it can leak credentials, so hide credentials in all but lowest level
         if (self::DEBUG_LOWLEVEL > $this->do_debug and
             in_array($command, ['User & Password', 'Username', 'Password'], true)) {
-            $this->edebug('CLIENT -> SERVER: <credentials hidden>', self::DEBUG_CLIENT);
+           // $this->edebug('CLIENT -> SERVER: <credentials hidden>', self::DEBUG_CLIENT);
         } else {
-            $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
+           // $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
         set_error_handler([$this, 'errorHandler']);
         $result = fwrite($this->smtp_conn, $data);

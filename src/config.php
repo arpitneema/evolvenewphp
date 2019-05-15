@@ -1,8 +1,10 @@
 <?php
 $host = "localhost";
-$dbuserName = "id8437031_krishna";
+
+
+$dbuserName = "kuxneqad_krishna";
 $dbpassword = "Harekrishna108*";
-$dbName = "id8437031_evolveuserdb";
+$dbName = "kuxneqad_evolvedb";
 
 $dbuserNamelocal = "id8437031_krishna";
 $dbpasswordlocal = "Harekrishna108*";
@@ -14,5 +16,8 @@ $api_url="https://www.instamojo.com/api/1.1/";
 //$private_auth_token="test_5d878b08bab24cd26c8b0d8b6aa";
 //$api_url="https://test.instamojo.com/api/1.1/";
 
-
+//000webhost
+//$dbuserName = "id8437031_krishna";
+//$dbpassword = "Harekrishna108*";
+//$dbName = "id8437031_evolveuserdb";
 ?>

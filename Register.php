@@ -2,15 +2,20 @@
 require_once ( 'src/config.php');
 require_once ( 'src/Instamojo.php');
 if(isset($_POST['paymentbutton'])){
-$product_name = "Registration for Quest for Infinity- A one day Fest";
-$price = "100";      //Download from website
+$product_name = "MINDFUL AND CONSCIOUS LIVING";
+      //Download from website
 $api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
 try {
 $conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
-//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbNamelocal);
+//$conn = new mysqli($host, $dbuserNamelocal, $dbpasswordlocal, $dbNamelocal);
 $yourName = $conn->real_escape_string($_POST['name']);
 $yourEmail = $conn->real_escape_string($_POST['email']);
 $yourPhone = $conn->real_escape_string($_POST['phone']);
+$price = "200";
+$testphone= "9958877819";
+if(strcasecmp($yourPhone, $testphone) == 0){
+$price = "9";	
+}
 $age = $conn->real_escape_string($_POST['age']);
 if ($conn->connect_error) {
 //die("Connection failed: " . $conn->connect_error);
@@ -33,7 +38,7 @@ else
         "email" => $yourEmail,
         'allow_repeated_payments' => false,
         "redirect_url" => "https://evolvetoexcel.com/PaymentRedirect.php",
-        "webhook" => "http://evolvetoexcel.com/webhook.php"
+        "webhook" => "https://evolvetoexcel.com/webhook.php"
     ));
     $pay_url = $response['longurl'];
     header("Location: $pay_url");
@@ -152,7 +157,7 @@ catch (Exception $e) {
 						<div class="sbpro-bg-styler text-center">
 							<h2 class="text-center" style="font-size: 30px; color: rgb(255, 255, 255); margin: 20px 0px;"></h2>
 							<p class="lead text-center" style="font-size: 19px; color: rgb(243, 243, 243); margin: 0px 0px 15px; font-style: italic;">Book Your Seat for this remarkable event </p>
-							<p class="text-center" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;">Please provide us your details and pay the registration fees of Rs 100 now to confirm your seat. </p>
+							<p class="text-center" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;">Please provide us your details and pay the registration fees of Rs 200 now to confirm your seat. </p>
 							<form role="form" action="" method="post" name="form1" onsubmit="return validateMyForm();">
 								<input type="text" name="_honey" value="" style="display:none" />
 								

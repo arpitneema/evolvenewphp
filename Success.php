@@ -102,16 +102,46 @@
 								Please find your registered details below: </br></br>
 								<div style="text-shadow: -2px 2px 2px #3011e0;">
 							<?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 require_once ( 'src/config.php');
 require_once ( 'src/Instamojo.php');
 
+$mail = new PHPMailer(true);  
+
 $api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
+
+$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
 $payid = $_GET["payment_request_id"];
 //print_r($api);
 //echo($payid);
 try {
 	
     $response = $api->paymentRequestStatus($payid);
+	
+	
+$name = $conn->real_escape_string($response['payments'][0]['buyer_name']);
+$email = $conn->real_escape_string($response['payments'][0]['buyer_email']);
+$phone = $conn->real_escape_string($response['payments'][0]['buyer_phone']);
+$paymentid = $conn->real_escape_string($response['payments'][0]['payment_id']);
+$paymentrequestid = $conn->real_escape_string($payid);
+$amount = $conn->real_escape_string($response['payments'][0]['amount']);
+$status = $conn->real_escape_string($response['payments'][0]['status']);
+	
+$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
+	$sql="INSERT INTO registereddevotee (name, email, phone, transactionid, Amount, paymentrequestid, status) VALUES ('".$name."','".$email."', '".$phone."', '".$paymentid."', '".$amount."', '".$paymentrequestid."', '".$status."')";
+
+if(!$result = $conn->query($sql)){
+
+}
+else
+{
+} 
+	
 echo "<p>Payment ID: " . $response['payments'][0]['payment_id'] . "</p></br>" ;
     echo "<h>Registered Name: " . $response['payments'][0]['buyer_name'] . "</h></br>" ;
     echo "<h>Registered Email: " . $response['payments'][0]['buyer_email'] . "</h></br>" ;
@@ -121,6 +151,60 @@ echo "<p>Payment ID: " . $response['payments'][0]['payment_id'] . "</p></br>" ;
 
   echo "<br></br>";
   
+  
+  
+  
+    //Server settings
+    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'evolvetoexcelteam@gmail.com';                 // SMTP username
+    $mail->Password = 'Harekrishna108';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    //Recipients
+    $mail->setFrom('info@evolvetoexcel.com', 'EvolveToExcel');
+   $mail->addAddress($email, $name);     // Add a recipient
+ // $mail->addAddress("arpitneema25@gmail.com", "arpit");     // Add a recipient
+  
+ // $mail->addAddress('ellen@example.com');               // Name is optional
+    $mail->addReplyTo('info@evolvetoexcel.com', 'EvolveToExcel');
+    //$mail->addCC('cc@example.com');
+   // $mail->addBCC('bcc@example.com');
+
+    //Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+   // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+    //Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Welcome Onboard';
+	$message = "You have succesfully registered for the event: 'Mindful and conscious living'. Please find the details below:";
+	            $message .= "<h1>Payment Details</h1>";
+    
+                $message .= "<hr>";
+                $message .= '<p><b>ID:</b> '.$data['payment_id'].'</p>';
+                $message .= '<p><b>Amount:</b> '.$data['amount'].'</p>';
+                $message .= "<hr>";
+                $message .= '<p><b>Name:</b> '.$data['buyer_name'].'</p>';
+                $message .= '<p><b>Email:</b> '.$data['buyer'].'</p>';
+                $message .= '<p><b>Phone:</b> '.$data['buyer_phone'].'</p>';
+				
+				$message .= "<h1>Event Details</h1>";
+    
+                $message .= "<hr>";
+                $message .= "<p><b>Date: 16th June 2019</b>";
+                $message .= "<p><b>Time: 6:00 PM </b>";
+                $message .= "<hr>";
+                $message .= '<p><b>Venue: Hotel Swasno, J-10/7 DLF Phase 2
+Opposite Sahara Mall, Gurgaon,</b> </p>';
+    $mail->Body    = $message;
+  //  $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
 }
 catch (Exception $e) {
     print('Error: ' . $e->getMessage());
