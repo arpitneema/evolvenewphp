@@ -6,8 +6,8 @@ $product_name = "MINDFUL AND CONSCIOUS LIVING";
       //Download from website
 $api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
 try {
-//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
-$conn = new mysqli($host, $dbuserNamelocal, $dbpasswordlocal, $dbNamelocal);
+$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
+//$conn = new mysqli($host, $dbuserNamelocal, $dbpasswordlocal, $dbNamelocal);
 $yourName = $conn->real_escape_string($_POST['name']);
 $yourEmail = $conn->real_escape_string($_POST['email']);
 $yourPhone = $conn->real_escape_string($_POST['phone']);
@@ -137,7 +137,7 @@ catch (Exception $e) {
 					<li class="snip1217"><a href="index.html" onclick="onclickofli()">Home</a></li>
 					<li class="snip1217"><a href="index.html#about" onclick="onclickofli()">About</a></li>
 					<li class="snip1217"><a href="index.html#highlights" onclick="onclickofli()">Highlights</a></li>
-					<li class="snip1217"><a href="index.html#speaker" onclick="onclickofli()">Speaker</a></li>
+					<li class="snip1217"><a href="index.html#speakerdiv" onclick="onclickofli()">Speaker</a></li>
 					<li class="snip1217"><a href="Register.php" onclick="onclickofli()">Register</a></li>
 					<li class="snip1217"><a href="index.html#contact" onclick="onclickofli()">Contact</a></li>
 

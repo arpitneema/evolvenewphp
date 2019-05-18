@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Success </title>
+	<title>Payment Response </title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700,900" rel="stylesheet">
@@ -164,7 +164,7 @@ else
 	 }else{
 		 
 		 	 echo '<h1 class="font-open text-white margin-bottom-25 text-center" style="font-size: 36px; color: rgb(255, 255, 255); margin: 0px 0px 25px; font-weight: itallic; text-shadow: -2px 2px 2px #59F90A;">You have Successfully Registered For the Event</h1>';
-			 echo '<div class="blodck parrot bg-layer heading-wrapper-small top-left" id="cta" style="border-style: solid; font-size: 20px;color: rgb(255, 255, 255); padding-top: 30px;min-height:100%; position:relative;">
+			 echo '<div class="blodck parrot bg-layer heading-wrapper-small top-left" id="cta" style="border-style: solid; font-size: 20px;color: rgb(255, 255, 255); padding-top: 30px;padding-bottom: 30px; min-height:100%; position:relative; padding-left:30px;">
 								Please find your registered details below: </br></br>
 								<div style="text-shadow: -2px 2px 2px #3011e0;">';
 		 echo "<h>   Payment ID: " . $response['payments'][0]['payment_id'] . "</h></br>" ;
