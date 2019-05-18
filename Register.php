@@ -6,12 +6,13 @@ $product_name = "MINDFUL AND CONSCIOUS LIVING";
       //Download from website
 $api = new Instamojo\Instamojo($private_key, $private_auth_token,$api_url);
 try {
-$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
-//$conn = new mysqli($host, $dbuserNamelocal, $dbpasswordlocal, $dbNamelocal);
+//$conn = new mysqli($host, $dbuserName, $dbpassword, $dbName);
+$conn = new mysqli($host, $dbuserNamelocal, $dbpasswordlocal, $dbNamelocal);
 $yourName = $conn->real_escape_string($_POST['name']);
 $yourEmail = $conn->real_escape_string($_POST['email']);
 $yourPhone = $conn->real_escape_string($_POST['phone']);
-$price = "200";
+//$price = "200";
+$price=$_POST['price'];
 $testphone= "9958877819";
 if(strcasecmp($yourPhone, $testphone) == 0){
 $price = "9";
@@ -174,10 +175,16 @@ catch (Exception $e) {
 								<div class="form-group">
 									<input type="number" class="form-cntrol input-lg" id="age" name="age" placeholder="Age *" style="width:300px;"/> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;"></span>
 								</div>
-								<p id="responseCoupan" style="color: rgb(53, 236, 53);"></p>
-								<p class="text-center" id="paymentDetails" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;">Please provide us your details and pay the registration fees of Rs 200 now to confirm your seat. </p>
-								<button type="button" class="btn btn-primary btn-lg " data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verifying" style="color:rgb(0,0,255)" name="verifycoupanbutton" id="verifycoupanbutton" onclick="verifyCoupan()">Verify Coupan
-								</button>
+								<div class="form-group">
+									<input type="text" class="form-cntrol input-lg" id="coupon" name="coupon" placeholder="Have a Coupon Code?" style="width:250px;"/><button type="button" class="btn btn-primary btn-lg " data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verifying" style="color:rgb(0,0,255)" name="verifycoupanbutton" id="verifycoupanbutton" onclick="verifyCoupan()">Apply Coupon 
+								</button> <span style="opacity: 1; background-size: 19px 13px; left: 538px; top: 74.5px; width: 19px; min-width: 19px; height: 13px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMTcnIGhlaWdodD0nMTInIHZpZXdCb3g9JzAgMCAxNyAxMic+IDxkZWZzPiA8cGF0aCBpZD0nYScgZD0nTTcuOTA5IDEuNDYybDIuMTIxLjg2NHMtLjY3MS4xMy0xLjIwOS4yOTRjMCAwIC40MzcuNjM0Ljc3LjkzOC4zOTEtLjE4LjY1Ny0uMjQ4LjY1Ny0uMjQ4LS44MTEgMS42NjgtMi45NzkgMi43MDMtNC41MyAyLjcwMy0uMDkzIDAtLjQ4Mi0uMDA2LS43MjcuMDE1LS40MzUuMDIxLS41ODEuMzgtLjM3NC40NzMuMzczLjIwMSAxLjE0My42NjIuOTU4IDEuMDA5QzUuMiA4LjAwMy45OTkgMTEgLjk5OSAxMWwuNjQ4Ljg4Nkw2LjEyOSA4LjYzQzguNjAyIDYuOTQ4IDEyLjAwNiA2IDE1IDZoM1Y1aC00LjAwMWMtMS4wNTggMC0yLjA0LjEyMi0yLjQ3My0uMDItLjQwMi0uMTMzLS41MDItLjY3OS0uNDU1LTEuMDM1YTcuODcgNy44NyAwIDAgMSAuMTg3LS43MjljLjAyOC0uMDk5LjA0Ni0uMDc3LjE1NS0uMDk5LjU0LS4xMTIuNzc3LS4wOTUuODIxLS4xNi4xNDYtLjI0NS4yNTQtLjk3NC4yNTQtLjk3NEw3LjU2OS4zODlzLjIwMiAxLjAxMy4zNCAxLjA3M3onLz4gPC9kZWZzPiA8dXNlIGZpbGw9JyMwMDdDOTcnIGZpbGwtcnVsZT0nZXZlbm9kZCcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEpJyB4bGluazpocmVmPScjYScvPiA8L3N2Zz4=&quot;); background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible; z-index: auto;">
+									</span>
+									
+								</div>	
+                           <input type="hidden" name="price" id="price" value="200" >								
+								<p id="responseCoupon" style="color: rgb(53, 236, 53);"></p>
+								<p class="text-center" id="paymentDetails" style="font-size: 16px; color: rgb(238, 238, 238); margin: 0px 0px 15px; font-style: italic;"> </p>
+								
 								<button type="submit"  class="btn btn-primary btn-lg "  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Redirecting to Payment Gateway"  style="color:rgb(0,0,255)" name="paymentbutton" id="paymentbutton">Make Payment
 								</button>
 							</form>
@@ -313,22 +320,34 @@ window.onload = () => {
 };
 
 /**
-	* here a backend call will verify and validate the coupan
+	* here a backend call will verify and validate the coupon
 	*/
 	function verifyCoupan(){
 		// here make an ajax call to backend
-
-		// if coupan is valid return success and the new amount in response
-		// then show below code
-		{
-			// $('#responseCoupan').text('Invalid coupan').css('color','red');
-			// $('#paymentDetails').show();
+		if(document.form1.coupon.value === "OLDFRIENDS"){
+		document.form1.price.value=100;	
+		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 50%. Now you just have to pay only Rs. 100 to confirm your seat').css('color','#35ec35');
+		 $('#paymentDetails').css('display','none');
 		}
-		// else if coupan is invalid return businessError
+        else if(document.form1.coupon.value === "GOODQUIZ"){
+		document.form1.price.value=180;	
+		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 10%. Now you just have to pay only Rs. 180 to confirm your seat').css('color','#35ec35');
+		 $('#paymentDetails').css('display','none');
+		}else if(document.form1.coupon.value === "TOPQUIZ"){
+		document.form1.price.value=160;	
+		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 20%. Now you just have to pay only Rs. 160 to confirm your seat').css('color','#35ec35');
+		 $('#paymentDetails').css('display','none');
+		}else {
+			$('#responseCoupon').text('Invalid coupon').css('color','red');
+			$('#paymentDetails').show()
+		}
+		// if coupon is valid return success and the new amount in response
+		// then show below code
+		// else if coupon is invalid return businessError
 		// then below message will be shown to user
 		{
-			$('#responseCoupan').text('Coupan applied successfully. You have to pay only Rs. '+'"new amount" ' + 'to confirm your seat').css('color','#35ec35');
-			$('#paymentDetails').css('display','none');
+			// $('#responseCoupon').text('coupon applied successfully. You have to pay only Rs. '+'"new amount" ' + 'to confirm your seat').css('color','#35ec35');
+			// $('#paymentDetails').css('display','none');
 		}
 
 	}
