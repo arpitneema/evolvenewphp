@@ -324,16 +324,16 @@ window.onload = () => {
 	*/
 	function verifyCoupan(){
 		// here make an ajax call to backend
-		if(document.form1.coupon.value === "OLDFRIENDS"){
+		if(document.form1.coupon.value === "OLDFRIENDS" || document.form1.coupon.value === "oldfriends"){
 		document.form1.price.value=100;	
 		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 50%. Now you just have to pay only Rs. 100 to confirm your seat').css('color','#35ec35');
 		 $('#paymentDetails').css('display','none');
 		}
-        else if(document.form1.coupon.value === "GOODQUIZ"){
+        else if(document.form1.coupon.value === "GOODQUIZ" || document.form1.coupon.value === "goodquiz"){
 		document.form1.price.value=180;	
 		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 10%. Now you just have to pay only Rs. 180 to confirm your seat').css('color','#35ec35');
 		 $('#paymentDetails').css('display','none');
-		}else if(document.form1.coupon.value === "TOPQUIZ"){
+		}else if(document.form1.coupon.value === "TOPQUIZ" || document.form1.coupon.value === "topquiz"){
 		document.form1.price.value=160;	
 		 $('#responseCoupon').text('Coupon applied successfully. You have been given a discount of 20%. Now you just have to pay only Rs. 160 to confirm your seat').css('color','#35ec35');
 		 $('#paymentDetails').css('display','none');
